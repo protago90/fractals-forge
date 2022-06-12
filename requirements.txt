@@ -1,0 +1,16 @@
+# service
+fastapi==0.78.0
+Jinja2==3.0.3  # tmpl
+passlib[bcrypt]==1.7.4  # hash
+python-jose[cryptography]==3.3.0  # jwtoken
+python-multipart==0.0.5  # form
+requests==2.25.1
+uvicorn[standard]==0.17.6  # server
+
+# worker
+celery==4.4.7
+flower==0.9.7  # wokrer gui
+redis==3.5.3  # broker
+
+# dev
+pythonmypy==0.961  # typing
