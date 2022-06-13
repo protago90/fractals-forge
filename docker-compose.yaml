@@ -1,0 +1,37 @@
+version: '3.10'
+
+
+x-config: &config
+  - CELERY_BROKER_URL=redis://broker:6379/0
+  - CELERY_RES_URL=redis://broker:6379/0
+
+x-mount: &mount
+  - ./fastforge:/fastforge
+
+
+services:
+
+  service:
+    build: ./
+    command: uvicorn fastforge.service.main:app --host 0.0.0.0
+    environment: *config
+    volumes: *mount
+    depends_on: ['broker']
+    ports: ['8000:8000']
+
+  broker:
+    image: redis:6-alpine
+
+  worker:
+    build: ./
+    command: celery worker --app=fastforge.worker.celery --concurrency=1 --loglevel=info
+    environment: *config
+    volumes: *mount
+    depends_on: ['broker', 'service']
+
+  # monitor:
+  #   build: .
+  #   command:  flower --app=fastforge.worker.celery --port=5555 --broker=redis://redis:6379/0
+  #   environment: *config
+  #   depends_on: ['broker', 'service', 'worker']
+  #   ports: ['5556:5555']

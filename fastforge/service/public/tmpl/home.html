@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="starter-template">
+    <div>  
+        <h2 style="display:inline">
+            <img src="static/src/forge.png" width="75" height="40"> Fractals Forge </h2>
+        <form style="display:inline;float:right">
+            <input type="text" id="user" value="username" size="8">
+            <input type="password" id="pwd" value="secret" size="8">
+            <button type="button" class="btn btn-primary" src="static/src/forge.png" onclick="loginUser()">✓</button>
+        </form>
+        <hr>
+    </div>
+    <br>
+    <div>
+        <p type="text" id="hello">Please login to obtain access token..</p>  <!--here html injection take place-->
+    </div>
+    <br><br><br>
+    <div>
+        <table class="table">
+            <thead><tr><th>uuid</th><th>status</th><th>result</th></tr></thead>
+            <tbody id="tasks"></tbody>  <!--here html injection take place-->
+        </table>
+    </div>  
+</div>
+{% endblock %}
